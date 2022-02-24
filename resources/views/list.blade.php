@@ -19,6 +19,10 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+
+        <!-- Supabase -->
+        <script src="https://unpkg.com/@supabase/supabase-js"></script>
+
     </head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
@@ -56,6 +60,21 @@
                             <div class="ml-12">
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                                     Richard says ... here is a list.
+                                    <?php
+
+                                        $ch = curl_init("http://www.example.com/");
+                                        $fp = fopen("example_homepage.txt", "w");
+                                        
+                                        curl_setopt($ch, CURLOPT_FILE, $fp);
+                                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                                        
+                                        curl_exec($ch);
+                                        if(curl_error($ch)) {
+                                            fwrite($fp, curl_error($ch));
+                                        }
+                                        curl_close($ch);
+                                        fclose($fp);
+                                    ?>
                                 </div>
                             </div>
                         </div>
