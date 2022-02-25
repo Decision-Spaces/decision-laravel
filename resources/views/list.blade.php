@@ -60,21 +60,30 @@
                             <div class="ml-12">
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                                     Richard says ... here is a list.
+                                    <p>
                                     <?php
 
-                                        $ch = curl_init("http://www.example.com/");
-                                        $fp = fopen("example_homepage.txt", "w");
-                                        
-                                        curl_setopt($ch, CURLOPT_FILE, $fp);
-                                        curl_setopt($ch, CURLOPT_HEADER, 0);
-                                        
-                                        curl_exec($ch);
-                                        if(curl_error($ch)) {
-                                            fwrite($fp, curl_error($ch));
-                                        }
-                                        curl_close($ch);
-                                        fclose($fp);
+                                    $url = "https://krsqpokzziwehlqtiwfp.supabase.co/rest/v1/decisions?select=*";
+                                    
+                                    $curl = curl_init($url);
+                                    curl_setopt($curl, CURLOPT_URL, $url);
+                                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                                    
+                                    $headers = array(
+                                       "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtyc3Fwb2t6eml3ZWhscXRpd2ZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDU3MTk3MDUsImV4cCI6MTk2MTI5NTcwNX0.7j7tzQpcH924RkeOPD64VZK3rEfcDCbwJ0P4xPoKdMI",
+                                       "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtyc3Fwb2t6eml3ZWhscXRpd2ZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDU3MTk3MDUsImV4cCI6MTk2MTI5NTcwNX0.7j7tzQpcH924RkeOPD64VZK3rEfcDCbwJ0P4xPoKdMI",
+                                    );
+                                    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+                                    //for debug only!
+                                    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+                                    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                                    
+                                    $resp = curl_exec($curl);
+                                    curl_close($curl);
+                                    var_dump($resp);
+                                    
                                     ?>
+                                    </p>
                                 </div>
                             </div>
                         </div>
